@@ -1,7 +1,7 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 
 type ShopingCartProviderProps = {
-    children: React.ReactNode;
+    children: ReactNode;
 }
 
 type CartItem ={
@@ -9,21 +9,21 @@ type CartItem ={
     quantity:number,
 }
 
-type ShopingCartContext = {
+type ShoppingCartContextt = {
     getItemQuantity: (id:number) => number
     increaseCartQuantity: (id:number) => void
-    dcreaseCartuantity: (id:number) => void
+    decreaseCartQuantity: (id:number) => void
     removeFromCart: (id:number) => void
 }
 
-const ShopingCartContext = createContext({} as ShopingCartContext);
+const ShoppingCartContext = createContext({} as ShoppingCartContextt); //for using array{}
 
-export function useShopingCart(){
-    return useContext(ShopingCartContext);
+export function useShoppingCart() {
+  return useContext(ShoppingCartContext)
 }
 
 
-export function ShopingCartProvider({children}: ShopingCartProviderProps){
+export function ShoppingCartProvider({children}: ShopingCartProviderProps){
 
     const [cartItems, setCartItems] = useState<CartItem[]>([])
 
@@ -48,7 +48,7 @@ export function ShopingCartProvider({children}: ShopingCartProviderProps){
         })
     }
 
-    function dcreaseCartuantity(id:number){
+    function decreaseCartQuantity(id:number){
         setCartItems(currentItems => {
             if(currentItems.find(item => item.id === id)?.quantity === 1){
                 return currentItems.filter(item => item.id === id)   
@@ -71,8 +71,8 @@ export function ShopingCartProvider({children}: ShopingCartProviderProps){
         })
     }
     return (
-            <ShopingCartContext.Provider value={{getItemQuantity, increaseCartQuantity, dcreaseCartuantity, removeFromCart}}>
+            <ShoppingCartContext.Provider value={{getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart}}>
                 {children}
-            </ShopingCartContext.Provider>
+            </ShoppingCartContext.Provider>
             )
 }
