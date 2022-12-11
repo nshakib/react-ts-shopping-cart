@@ -1,8 +1,11 @@
-import React from 'react'
-import { Button, Container, Nav, Navbar as NavbarBS } from 'react-bootstrap'
-import { NavLink } from 'react-router-dom'
+import { Button, Container, Nav, Navbar as NavbarBS } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
+import { useShoppingCart } from '../context/ShoppingCartContext';
 
 const Navbar = () => {
+    const {getItemTotalCards } = useShoppingCart();
+    const quantity =  getItemTotalCards.length;
+
   return (
     <NavbarBS sticky='top' className='bg-white shadow-sm mb-3'>
         <Container>
@@ -34,7 +37,7 @@ const Navbar = () => {
                     right: 0,
                     transform: "translate(25%, 25%)"
                     }}>
-                    3
+                    {quantity}
                 </div>
             </Button>
         </Container>
