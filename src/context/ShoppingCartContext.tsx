@@ -63,7 +63,7 @@ export function ShoppingCartProvider({children}: ShopingCartProviderProps){
 
     function removeFromCart(id:number){
         setCartItems(currentItems => {
-            return currentItems.filter(item => item.id === id);
+            return currentItems.filter(item => item.id !== id);
         })
     }
     return (
